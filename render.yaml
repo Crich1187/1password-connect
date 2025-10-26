@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: 1password-connect
+    runtime: docker
+    plan: starter
+    region: virginia
+    branch: main
+    disk:
+      name: op-data
+      mountPath: /home/opuser/.op/data
+      sizeGB: 1
+    disk2:
+      name: tailscale-state
+      mountPath: /var/lib/tailscale
+      sizeGB: 1
+    envVars:
+      - key: OP_SESSION
+        sync: false
+      - key: TAILSCALE_AUTHKEY
+        sync: false
+    healthCheckPath: /health
